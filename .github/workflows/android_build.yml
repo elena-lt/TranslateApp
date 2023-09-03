@@ -19,6 +19,9 @@ jobs:
 
 #      - name: Run Tests
 #        run: ./gradlew test
+      -
+      - name: Generate Version Catalog
+        run: ./gradlew generateCatalogsAsToml
 
       - name: Build Project
         run: ./gradlew build
