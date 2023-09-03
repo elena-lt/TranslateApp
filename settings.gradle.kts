@@ -23,7 +23,7 @@ pluginManagement {
 
 dependencyResolutionManagement {
   versionCatalogs {
-    create("libs") { from(files("../Transaltor_KMM/gradle/wrapper/libs.versions.toml"))}
+    create("libs") { from(files("../Translate/gradle/wrapper/libs.versions.toml"))}
   }
 
   repositories {
