@@ -22,6 +22,10 @@ pluginManagement {
 }
 
 dependencyResolutionManagement {
+  versionCatalogs {
+    create("libs") { from(files("../Transaltor_KMM/gradle/wrapper/libs.versions.toml"))}
+  }
+
   repositories {
     google()
     mavenCentral()

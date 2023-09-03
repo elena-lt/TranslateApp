@@ -37,15 +37,26 @@ kotlin {
         implementation(compose.materialIconsExtended)
         @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
         implementation(compose.components.resources)
+
+        implementation(libs.bundles.ktor.common)
+        implementation(libs.bundles.sql.delight.common)
+        implementation(libs.date.time)
       }
     }
 
     val commonTest by getting {
       dependencies {
         implementation(kotlin("test"))
+        implementation(libs.assertK)
+        implementation(libs.turbine)
       }
     }
-    val androidMain by getting
+    val androidMain by getting {
+      dependencies {
+        implementation(libs.ktor.android)
+        implementation(libs.sql.delight.android.driver)
+      }
+    }
     val androidUnitTest by getting
     val iosX64Main by getting
     val iosArm64Main by getting
@@ -55,6 +66,11 @@ kotlin {
       iosX64Main.dependsOn(this)
       iosArm64Main.dependsOn(this)
       iosSimulatorArm64Main.dependsOn(this)
+
+      dependencies {
+        implementation(libs.ktor.ios)
+        implementation(libs.sql.delight.native.driver)
+      }
     }
     val iosX64Test by getting
     val iosArm64Test by getting
