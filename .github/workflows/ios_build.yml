@@ -1,6 +1,9 @@
-name: KaMPKit-iOS
+name: iOS Debug Build
 
-on: [push]
+on:
+  [push]
+  workflow_dispatch:
+  pull_request:
 #  workflow_dispatch:
 #    branches:
 #      - main

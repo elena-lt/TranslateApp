@@ -1,14 +1,16 @@
-name: Android Build
+name: Android Debug Build
 
 #on: pull_request
-on: [push]
+on:
+  [ push ]
+  workflow_dispatch:
+  pull_request:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-#      - uses: actions/checkourv1 #Can be used when triggered on pull_request
       - uses: actions/checkout@v3
 
       - name: Setup JDK
@@ -17,11 +19,47 @@ jobs:
           distribution: corretto
           java-version: 11
 
-#      - name: Run Tests
-#        run: ./gradlew test
+      - name: Restore Cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches
+                ~/.gradle/wrapper
+          key: ${{runner.os}}-gradle-${{hashFiles('**/*.gradle')}}
+          restore-keys: |
+            ${{runner.os}}-gradle-
 
-#      - name: Generate Version Catalog
-#        run: ./gradlew generateCatalogsAsToml
+      - name: Run Tests
+        run: ./gradlew test
 
       - name: Build Project
         run: ./gradlew build
+
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug
+
+      - name: Publish APK
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: New Build
+          path: app/build/outputs/apk/debug/TranslateApp_${{ github.event.inputs.version }}.apk
+
+  release:
+    name: Release APK
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: DownloadAPK from build
+        uses: actions/download-artifact@v1
+        with:
+          name: TranslateApp
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        with:
+          tag_name: v${{ github.event.inputs.version }}
+          draft: false
+          prerelease: false
+          files: TranslateApp/TranslateApp_${{ github.event.inputs.version }}.apk
+
