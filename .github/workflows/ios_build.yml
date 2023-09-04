@@ -4,12 +4,12 @@ on: [push]
 #  workflow_dispatch:
 #    branches:
 #      - main
-  pull_request:
-    paths-ignore:
-      - "**.md"
-      - "*.png"
-      - docs
-      - app
+#  pull_request:
+#    paths-ignore:
+#      - "**.md"
+#      - "*.png"
+#      - docs
+#      - app
 
 jobs:
   build:
