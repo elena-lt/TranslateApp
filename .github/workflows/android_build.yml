@@ -60,5 +60,5 @@ jobs:
           tag_name: v${{ github.event.inputs.version }}
           draft: false
           prerelease: false
-          files: TranslateApp/androidApp-debug_${{ github.event.inputs.version }}.apk
+          files: androidApp-debug_${{ github.event.inputs.version }}.apk
 
