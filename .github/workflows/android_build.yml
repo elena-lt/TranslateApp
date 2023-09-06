@@ -39,7 +39,7 @@ jobs:
       - name: Publish APK
         uses: actions/upload-artifact@v3.1.2
         with:
-          name: New Build
+          name: androidApp-debug
           path: androidApp/build/outputs/apk/debug/androidApp-debug.apk
 
   release:
