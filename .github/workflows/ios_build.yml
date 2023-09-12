@@ -1,18 +1,13 @@
 name: iOS Debug Build
 
 on:
-  [push]
+  push:
+    branches:
+      - master
   workflow_dispatch:
-  pull_request:
-#  workflow_dispatch:
+#  pull_request:
 #    branches:
 #      - main
-#  pull_request:
-#    paths-ignore:
-#      - "**.md"
-#      - "*.png"
-#      - docs
-#      - app
 
 jobs:
   build:
