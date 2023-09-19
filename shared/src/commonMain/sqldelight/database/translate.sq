@@ -1,0 +1,17 @@
+CREATE TABLE HistoryEntity (
+  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  fromLangCode TEXT NOT NULL,
+  fromText TEXT NOT NULL,
+  toLangCode TEXT NOT NULL,
+  toText TEXT NOT NULL,
+  timestamp INTEGER NOT NULL
+);
+
+getHistory:
+SELECT * FROM HistoryEntity
+ORDER BY timestamp DESC;
+
+insertHistoryEntity:
+INSERT OR REPLACE
+INTO HistoryEntity(id, fromLangCode, fromText, toLangCode, toText, timestamp)
+VALUES (?, ?, ?, ?, ?, ?);
