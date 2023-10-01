@@ -26,7 +26,6 @@ enum class Language(
   PERSIAN("fa", "Persian"),
   POLISH("pl", "Polish"),
   PORTUGUESE("pt", "Portuguese"),
-  RUSSIAN("ru", "Russian"),
   SLOVAK("sk", "Slovak"),
   SPANISH("es", "Spanish"),
   SWEDISH("sv", "Swedish"),
