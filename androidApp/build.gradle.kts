@@ -1,6 +1,8 @@
 plugins {
   id("com.android.application")
   kotlin("android")
+  kotlin("kapt")
+  id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -36,6 +38,9 @@ android {
   kotlinOptions {
     jvmTarget = "11"
   }
+  kapt{
+    correctErrorTypes = true
+  }
 }
 
 dependencies {
@@ -46,4 +51,9 @@ dependencies {
   implementation("androidx.compose.foundation:foundation:1.5.0")
   implementation("androidx.compose.material:material:1.5.0")
   implementation("androidx.activity:activity-compose:1.7.2")
+
+  implementation(libs.hilt.android)
+  implementation(libs.hilt.navigation.compose)
+  kapt(libs.hilt.compiler)
+  kapt(libs.hilt.android.compiler)
 }

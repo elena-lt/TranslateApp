@@ -3,6 +3,8 @@ plugins {
   kotlin("native.cocoapods")
   id("org.jetbrains.compose")
   id("com.android.library")
+  id("com.squareup.sqldelight")
+  alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {
@@ -89,5 +91,12 @@ android {
   compileSdk = 34
   defaultConfig {
     minSdk = 24
+  }
+}
+
+sqldelight {
+  database("TranslateDatabase"){
+    packageName = "com.lutty.translate.database"
+    sourceFolders = listOf("sqldelight")
   }
 }

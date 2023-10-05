@@ -41,6 +41,7 @@ android-application = { id = "com.android.application", version.ref = "androidGr
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlinPlugin" }
 sql-delight = { id = "com.squareup.sqldelight", version.ref = "sql" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 
 [libraries]
 
