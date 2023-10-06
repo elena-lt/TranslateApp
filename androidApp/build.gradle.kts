@@ -52,6 +52,8 @@ dependencies {
   implementation("androidx.compose.material:material:1.5.0")
   implementation("androidx.activity:activity-compose:1.7.2")
 
+  implementation(libs.coil)
+
   implementation(libs.hilt.android)
   implementation(libs.hilt.navigation.compose)
   kapt(libs.hilt.compiler)
