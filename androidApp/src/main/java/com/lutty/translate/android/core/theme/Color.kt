@@ -10,7 +10,7 @@ val AccentViolet = Color(Colors.AccentViolet)
 val TextBlack = Color(Colors.TextBlack)
 val DarkGray = Color(Colors.DarkGrey)
 val LightBlueGray = Color(Colors.LightBlueGrey)
-val LightBlur = Color(Colors.LightBlue)
+val LightBlue = Color(Colors.LightBlue)
 
 val lightColors = lightColors(
   primary = AccentViolet,
