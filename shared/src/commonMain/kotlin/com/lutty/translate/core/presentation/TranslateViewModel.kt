@@ -86,9 +86,14 @@ class TranslateViewModel(
   fun onEvent(event: TranslateEvent) {
     when (event) {
       is ChangeTranslationText -> _state.update { it.copy(fromText = event.text) }
-      is ChooseFromLanguage -> _state.update { it.copy(isChoosingFromLanguage = false) }
+      is ChooseFromLanguage -> _state.update {
+        it.copy(
+          isChoosingFromLanguage = false,
+          fromLanguage = event.lang
+        )
+      }
       is ChooseToLanguage -> {
-        _state.updateAndGet { it.copy(isChoosingToLanguage = false, fromLanguage = event.lang) }
+        _state.updateAndGet { it.copy(isChoosingToLanguage = false, toLanguage = event.lang) }
           .let(::translateText)
       }
       CloseTranslation -> _state.update {
