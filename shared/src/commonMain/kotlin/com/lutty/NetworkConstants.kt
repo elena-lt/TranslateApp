@@ -1,4 +1,5 @@
 package com.lutty
 
-class NetworkConstants {
+object NetworkConstants {
+  const val BASE_URL = "https://translate"
 }
