@@ -32,11 +32,11 @@ android {
     }
   }
   compileOptions {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
   }
   kotlinOptions {
-    jvmTarget = "11"
+    jvmTarget = "17"
   }
   kapt{
     correctErrorTypes = true
@@ -51,7 +51,7 @@ dependencies {
   implementation(libs.compose.foundation)
   implementation(libs.compose.material)
   implementation(libs.compose.navigation)
-  implementation("androidx.activity:activity-compose:1.7.2")
+  implementation("androidx.activity:activity-compose:1.8.0")
 
   implementation(libs.coil)
 
