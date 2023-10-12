@@ -1,9 +1,9 @@
 plugins {
-  kotlin("multiplatform")
-  kotlin("native.cocoapods")
-  id("org.jetbrains.compose")
-  id("com.android.library")
-  id("com.squareup.sqldelight")
+  alias(libs.plugins.android.multiplatform)
+  alias(libs.plugins.cocoapods)
+  alias(libs.plugins.android.compose)
+  alias(libs.plugins.android.library)
+  alias(libs.plugins.sql.delight)
   alias(libs.plugins.kotlin.serialization)
 }
 
@@ -11,7 +11,7 @@ kotlin {
   android {
     compilations.all {
       kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
       }
     }
   }
@@ -91,6 +91,11 @@ android {
   compileSdk = 34
   defaultConfig {
     minSdk = 24
+  }
+
+  compileOptions{
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
   }
 }
 
