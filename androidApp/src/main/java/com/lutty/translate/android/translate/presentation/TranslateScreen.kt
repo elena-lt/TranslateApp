@@ -1,5 +1,6 @@
 package com.lutty.translate.android.translate.presentation
 
+import android.speech.tts.TextToSpeech
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -21,6 +22,7 @@ import com.lutty.translate.android.R
 import com.lutty.translate.android.translate.presentation.components.LanguageDropdown
 import com.lutty.translate.android.translate.presentation.components.SwapLanguagesButton
 import com.lutty.translate.android.translate.presentation.components.TranslateTextField
+import com.lutty.translate.android.translate.presentation.components.rememberTextToSpeech
 import com.lutty.translate.core.presentation.TranslateEvent
 import com.lutty.translate.core.presentation.TranslateEvent.ChangeTranslationText
 import com.lutty.translate.core.presentation.TranslateEvent.CloseTranslation
@@ -28,6 +30,7 @@ import com.lutty.translate.core.presentation.TranslateEvent.EditTranslation
 import com.lutty.translate.core.presentation.TranslateEvent.OpenToLangDropDown
 import com.lutty.translate.core.presentation.TranslateEvent.SwapLanguages
 import com.lutty.translate.core.presentation.TranslateState
+import java.util.Locale
 
 @Composable
 fun TranslateScreen(
@@ -72,7 +75,8 @@ fun TranslateScreen(
 
       item {
         val clipboardmanager = LocalClipboardManager.current
-        val kearboardController = LocalSoftwareKeyboardController.current
+        val keyboardController = LocalSoftwareKeyboardController.current
+        val tts = rememberTextToSpeech()
 
         TranslateTextField(
           fromText = state.fromText,
@@ -81,7 +85,7 @@ fun TranslateScreen(
           fromLanguage = state.fromLanguage,
           toLanguage = state.toLanguage,
           onTranslateClick = {
-            kearboardController?.hide()
+            keyboardController?.hide()
             onEvent(TranslateEvent.Translate)
           },
           onTextChange = {
@@ -97,7 +101,10 @@ fun TranslateScreen(
             onEvent(ChangeTranslationText(it))
           },
           onCloseClick = { onEvent(CloseTranslation) },
-          onSpeakerClick = { /*TODO*/ },
+          onSpeakerClick = {
+            tts.language = state.toLanguage.toLocale() ?: Locale.ENGLISH
+            tts.speak(state.toText, TextToSpeech.QUEUE_FLUSH, null, null)
+          },
           onTextFieldClick = { onEvent(EditTranslation) },
           modifier = Modifier.fillMaxWidth()
         )
