@@ -14,6 +14,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalClipboardManager
@@ -32,10 +33,15 @@ import com.lutty.translate.core.presentation.TranslateEvent
 import com.lutty.translate.core.presentation.TranslateEvent.ChangeTranslationText
 import com.lutty.translate.core.presentation.TranslateEvent.CloseTranslation
 import com.lutty.translate.core.presentation.TranslateEvent.EditTranslation
+import com.lutty.translate.core.presentation.TranslateEvent.OnErrorSeen
 import com.lutty.translate.core.presentation.TranslateEvent.OpenToLangDropDown
 import com.lutty.translate.core.presentation.TranslateEvent.SelectHistoryItem
 import com.lutty.translate.core.presentation.TranslateEvent.SwapLanguages
 import com.lutty.translate.core.presentation.TranslateState
+import com.lutty.translate.translate.domain.translate.TranslateError.CLIENT_ERROR
+import com.lutty.translate.translate.domain.translate.TranslateError.SERVER_ERROR
+import com.lutty.translate.translate.domain.translate.TranslateError.SERVICE_UNAVAILABLE
+import com.lutty.translate.translate.domain.translate.TranslateError.UNKNOWN_ERROR
 import java.util.Locale
 
 @Composable
@@ -44,6 +50,21 @@ fun TranslateScreen(
   onEvent: (TranslateEvent) -> Unit
 ) {
   val context = LocalContext.current
+
+  LaunchedEffect(key1 = state.error) {
+    val message = when (state.error) {
+      SERVICE_UNAVAILABLE -> context.getString(R.string.error_service_unavailable)
+      CLIENT_ERROR -> context.getString(R.string.client_error)
+      SERVER_ERROR -> context.getString(R.string.server_error)
+      UNKNOWN_ERROR -> context.getString(R.string.error_unknown)
+      else -> null
+    }
+
+    message?.let {
+      Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+      onEvent(OnErrorSeen)
+    }
+  }
 
   Scaffold(floatingActionButton = {}) { paddingValues ->
     LazyColumn(
