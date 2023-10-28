@@ -116,8 +116,8 @@ class TranslateViewModel(
         it.copy(
           fromText = event.item.fromText,
           toText = event.item.toText,
-          fromLanguage = UiLanguage.byCode(event.item.fromLangCode),
-          toLanguage = UiLanguage.byCode(event.item.toLangCode),
+          fromLanguage = UiLanguage.byCode(event.item.fromLanguage.language.langCode),
+          toLanguage = UiLanguage.byCode(event.item.toLangCode.language.langCode),
           isTranslating = false
         )
       }
