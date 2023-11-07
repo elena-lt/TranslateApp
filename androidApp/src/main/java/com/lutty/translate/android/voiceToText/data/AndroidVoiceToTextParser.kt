@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
+import android.speech.SpeechRecognizer.ERROR_CLIENT
 import com.lutty.translate.android.R
 import com.lutty.translate.core.domain.util.CommonStateFlow
 import com.lutty.translate.core.domain.util.toCommonStateFlow
@@ -73,6 +74,7 @@ class AndroidVoiceToTextParser(
   }
 
   override fun onError(errorCode: Int) {
+    if(errorCode == ERROR_CLIENT) return
     _state.update { it.copy(error = "Error: $errorCode") }
   }
 
